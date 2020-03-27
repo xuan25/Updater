@@ -2,6 +2,14 @@
 
 **A automatic updater solution based on Github api**
 
+## Description
+
+This is a simple auto-update solution for standalone executables
+
+It will fetch updates from the Github release page. 
+
+Version checking is by comparing the version code on the Github release page and the version code build-in the current program.
+
 ## Config
 
 To use this updater you need to setup a numbers of variables
