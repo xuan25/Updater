@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Updater.UI.IconButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Updater.UI"
+             mc:Ignorable="d"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             Height="24" Width="32" HorizontalAlignment="Center" PreviewMouseLeftButtonDown="UserControl_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="UserControl_PreviewMouseLeftButtonUp">
+    <UserControl.Resources>
+        <local:SolidColorBrushConverter x:Key="SolidColorBrushConverter"/>
+        <Storyboard x:Key="MouseEnterStoryboard">
+            <ColorAnimation Storyboard.TargetProperty="DisplayedBackground"
+                            BeginTime="00:00:00.000" To="{Binding HoveredBackground}"
+                            Duration="00:00:00.200">
+                <ColorAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>
+            <ColorAnimation Storyboard.TargetProperty="DisplayedForeground"
+                            BeginTime="00:00:00.000" To="{Binding HoveredForeground}"
+                            Duration="00:00:00.200">
+                <ColorAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>
+        </Storyboard>
+        <Storyboard x:Key="MouseLeaveStoryboard">
+            <ColorAnimation Storyboard.TargetProperty="DisplayedBackground"
+                            BeginTime="00:00:00.000" To="{Binding Background}"
+                            Duration="00:00:00.200">
+                <ColorAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>
+            <ColorAnimation Storyboard.TargetProperty="DisplayedForeground"
+                            BeginTime="00:00:00.000" To="{Binding Foreground}"
+                            Duration="00:00:00.200">
+                <ColorAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="MouseEnter">
+            <BeginStoryboard Storyboard="{StaticResource MouseEnterStoryboard}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="MouseLeave">
+            <BeginStoryboard Storyboard="{StaticResource MouseLeaveStoryboard}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid>
+        <Border x:Name="ButtonBorder" CornerRadius="12" Background="{Binding DisplayedBackground, Converter={StaticResource SolidColorBrushConverter}}">
+            <Path x:Name="IconPath" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{Binding DisplayedForeground, Converter={StaticResource SolidColorBrushConverter}}" Data="{Binding IconGeometry}"/>
+        </Border>
+    </Grid>
+</UserControl>
